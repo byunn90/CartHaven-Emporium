@@ -28,22 +28,22 @@ const initialBasketAndCustomers = [
   },
   /// Fruits
   {
-    id: 334411,
+    FruitId: 334411,
     fruit: "apple",
     price: 1,
-    image: "🍏",
+    fruitimage: "🍏",
   },
   {
-    id: 335512,
+    FruitId: 335512,
     fruit: "Banana",
     price: 2,
-    image: "🍌",
+    fruitimage: "🍌",
   },
   {
-    id: 336613,
+    FruitId: 336613,
     fruit: "Tomato",
     price: 1,
-    image: "🍅",
+    fruitimage: "🍅",
   },
 ];
 
@@ -61,8 +61,8 @@ function Friend({ customer }) {
   return (
     <div>
       <li>
-        <img src={customer.image}></img>
         <h3>{customer.name}</h3>
+        <img src={customer.image}></img>
       </li>
     </div>
   );
@@ -70,8 +70,8 @@ function Friend({ customer }) {
 function ShowListPeople({ customer }) {
   return (
     <ul>
-      {customer.map((customer) => (
-        <Friend customer={customer} key={customer.id} />
+      {customer.map((customers) => (
+        <Friend customer={customers} key={customers.id} />
       ))}
     </ul>
   );
