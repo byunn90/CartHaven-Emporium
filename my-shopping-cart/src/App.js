@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./index.css";
 // array Objects
-const initialBasketAndFriend = [
+const initialBasketAndCustomers = [
   {
     id: 118836,
     name: "Kayhan",
@@ -48,18 +48,31 @@ const initialBasketAndFriend = [
 ];
 
 export default function App() {
-  function buttonToggler() {
-    setShowCart((show) => !show);
-  }
+  const [customer, setCustomer] = useState(initialBasketAndCustomers);
 
-  function button() {
-    <div className="button">
-      <button></button>
-    </div>;
-  }
   return (
     <div>
-      <h1>Test21</h1>
+      <ShowListPeople customer={customer} />
     </div>
+  );
+}
+
+function Friend({ customer }) {
+  return (
+    <div>
+      <li>
+        <img src={customer.image}></img>
+        <h3>{customer.name}</h3>
+      </li>
+    </div>
+  );
+}
+function ShowListPeople({ customer }) {
+  return (
+    <ul>
+      {customer.map((customer) => (
+        <Friend customer={customer} key={customer.id} />
+      ))}
+    </ul>
   );
 }
