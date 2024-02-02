@@ -48,6 +48,15 @@ const initialBasketAndFriend = [
 ];
 
 export default function App() {
+  function buttonToggler() {
+    setShowCart((show) => !show);
+  }
+
+  function button() {
+    <div className="button">
+      <button></button>
+    </div>;
+  }
   return (
     <div>
       <h1>Test21</h1>
