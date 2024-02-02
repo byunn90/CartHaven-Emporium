@@ -27,24 +27,24 @@ const initialBasketAndCustomers = [
     balance: 0,
   },
   /// Fruits
-  {
-    FruitId: 334411,
-    fruit: "apple",
-    price: 1,
-    fruitImage: "🍏",
-  },
-  {
-    FruitId: 335512,
-    fruit: "Banana",
-    price: 2,
-    fruitImage: "🍌",
-  },
-  {
-    FruitId: 336613,
-    fruit: "Tomato",
-    price: 1,
-    fruitImage: "🍅",
-  },
+  // {
+  //   FruitId: 334411,
+  //   fruit: "apple",
+  //   price: 1,
+  //   fruitImage: "🍏",
+  // },
+  // {
+  //   FruitId: 335512,
+  //   fruit: "Banana",
+  //   price: 2,
+  //   fruitImage: "🍌",
+  // },
+  // {
+  //   FruitId: 336613,
+  //   fruit: "Tomato",
+  //   price: 1,
+  //   fruitImage: "🍅",
+  // },
 ];
 
 export default function App() {
