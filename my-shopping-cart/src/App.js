@@ -31,19 +31,19 @@ const initialBasketAndCustomers = [
     FruitId: 334411,
     fruit: "apple",
     price: 1,
-    fruitimage: "🍏",
+    fruitImage: "🍏",
   },
   {
     FruitId: 335512,
     fruit: "Banana",
     price: 2,
-    fruitimage: "🍌",
+    fruitImage: "🍌",
   },
   {
     FruitId: 336613,
     fruit: "Tomato",
     price: 1,
-    fruitimage: "🍅",
+    fruitImage: "🍅",
   },
 ];
 
