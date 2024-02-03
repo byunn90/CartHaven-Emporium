@@ -49,13 +49,10 @@ const initialBasketAndCustomers = [
 export default function App() {
   const [customer, setCustomer] = useState(initialBasketAndCustomers);
   const [shoppingList, setShoppingList] = useState(initialBasketAndCustomers)
+    const [showAddToList, setshowAddToList] = useState(false);
 
-  function OnClick() {
-
-  }
-
-  function CustomerButton({ onclick }) {
-    return <button>Buy</button>;
+  function handleShowList() {
+    setshowAddToList((show) => !show)
   }
 
   return (
