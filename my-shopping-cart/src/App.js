@@ -26,33 +26,39 @@ const initialBasketAndCustomers = [
     image: "https://i.pravatar.cc/48?u=499476",
     balance: 0,
   },
-  /// Fruits
-  // {
-  //   FruitId: 334411,
-  //   fruit: "apple",
-  //   price: 1,
-  //   fruitImage: "🍏",
-  // },
-  // {
-  //   FruitId: 335512,
-  //   fruit: "Banana",
-  //   price: 2,
-  //   fruitImage: "🍌",
-  // },
-  // {
-  //   FruitId: 336613,
-  //   fruit: "Tomato",
-  //   price: 1,
-  //   fruitImage: "🍅",
-  // },
+  {
+    FruitId: 334411,
+    fruit: "apple",
+    price: 1,
+    fruitImage: "🍏",
+  },
+  {
+    FruitId: 335512,
+    fruit: "Banana",
+    price: 2,
+    fruitImage: "🍌",
+  },
+  {
+    FruitId: 336613,
+    fruit: "Tomato",
+    price: 1,
+    fruitImage: "🍅",
+  },
 ];
 
 export default function App() {
   const [customer, setCustomer] = useState(initialBasketAndCustomers);
 
+  function CustomerButton() {
+    return <button>Buy</button>;
+  }
+
   return (
-    <div>
+    <div className="sidebar">
       <ShowListPeople customer={customer} />
+      <div className="btn">
+        <CustomerButton />
+      </div>
     </div>
   );
 }
