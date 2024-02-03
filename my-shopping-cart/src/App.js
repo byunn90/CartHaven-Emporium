@@ -26,39 +26,89 @@ const initialBasketAndCustomers = [
     image: "https://i.pravatar.cc/48?u=499476",
     balance: 0,
   },
+];
+
+const initialFruits = [
   {
-    FruitId: 334411,
-    fruit: "apple",
+    id: 1,
+    fruit: "Apple",
     price: 1,
     fruitImage: "🍏",
   },
   {
-    FruitId: 335512,
+    id: 2,
     fruit: "Banana",
     price: 2,
     fruitImage: "🍌",
   },
   {
-    FruitId: 336613,
+    id: 3,
     fruit: "Tomato",
     price: 1,
     fruitImage: "🍅",
+  },
+  {
+    id: 4,
+    fruit: "Orange",
+    price: 1.5,
+    fruitImage: "🍊",
+  },
+  {
+    id: 5,
+    fruit: "Grapes",
+    price: 3,
+    fruitImage: "🍇",
+  },
+  {
+    id: 6,
+    fruit: "Strawberry",
+    price: 2.5,
+    fruitImage: "🍓",
+  },
+  {
+    id: 7,
+    fruit: "Watermelon",
+    price: 4,
+    fruitImage: "🍉",
+  },
+  {
+    id: 8,
+    fruit: "Pineapple",
+    price: 3.5,
+    fruitImage: "🍍",
+  },
+  {
+    id: 9,
+    fruit: "Kiwi",
+    price: 2,
+    fruitImage: "🥝",
+  },
+  {
+    id: 10,
+    fruit: "Mango",
+    price: 2.8,
+    fruitImage: "🥭",
   },
 ];
 
 export default function App() {
   const [customer, setCustomer] = useState(initialBasketAndCustomers);
-  const [shoppingList, setShoppingList] = useState(initialBasketAndCustomers)
-    const [showAddToList, setshowAddToList] = useState(false);
+  const [groceryList, setgroceryList] = useState(initialFruits);
+  const [showAddToList, setshowAddToList] = useState(false);
 
   function handleShowList() {
-    setshowAddToList((show) => !show)
+    // Toggle button to show list
+    setshowAddToList((show) => !show);
+  }
+
+  function CustomerButton() {
+    return <button>Go Shopping</button>;
   }
 
   return (
     <div className="sidebar">
-      <ShowListPeople customer={customer} shoppingList={shoppingList} />
-
+      <ShowListPeople customer={customer} />
+      <ShowGroceryList groceryList={groceryList}></ShowGroceryList>
       <div className="btn">
         <CustomerButton />
       </div>
@@ -79,19 +129,27 @@ function Friend({ customer }) {
 function ShowListPeople({ customer }) {
   return (
     <ul>
-      {customer.map((customers, shoppingList) => (
+      {customer.map((customers) => (
         <Friend customer={customers} key={customers.id} />
-        <FoodList groceryList={shoppingList} key={shoppingList.id}/>
       ))}
     </ul>
   );
 }
 
-function FoodList() {
-  return(
-    <div>
-      <h3></h3>
-      <img></img>
-    </div>
-  )
+function ShowGroceryList({ groceryList }) {
+  return (
+    <ul>
+      {groceryList.map((groceryItem) => (
+        <FoodList groceryItem={groceryItem} key={groceryItem.id} />
+      ))}
+    </ul>
+  );
+}
+function FoodList({ groceryItem }) {
+  return (
+    <li>
+      <h3>{groceryItem.fruit}</h3>
+      <img src={groceryItem.fruitImage} alt={groceryItem.fruit} />
+    </li>
+  );
 }
