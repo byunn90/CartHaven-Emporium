@@ -93,18 +93,17 @@ const initialFruits = [
 
 export default function App() {
   const [customer, setCustomer] = useState(initialBasketAndCustomers);
-  const [groceryList, setgroceryList] = useState(initialFruits);
-  const [showAddToList, setshowAddToList] = useState(false);
+  const [groceryList, setGroceryList] = useState(initialFruits);
+  const [showGroceryList, setShowGroceryList] = useState(false);
 
-  function handleShowList() {
-    // Toggle button to show list
-    setshowAddToList((show) => !show);
+  function handleShowGroceryList() {
+    setShowGroceryList((prevShowGroceryList) => !prevShowGroceryList);
   }
 
   function CustomerButton({ onClick }) {
     return (
       <button className="button" onClick={onClick}>
-        Go Shopping
+        {showGroceryList ? "Hide Grocery List" : "Show Grocery List"}
       </button>
     );
   }
@@ -112,8 +111,18 @@ export default function App() {
   return (
     <div className="sidebar">
       <ShowListPeople customer={customer} />
-      <showGrocerys groceryList={groceryList} />
-      <CustomerButton />
+      <CustomerButton onClick={handleShowGroceryList} />
+      {showGroceryList && <ShowGrocerys groceryList={groceryList} />}
+    </div>
+  );
+}
+
+function ShowListPeople({ customer }) {
+  return (
+    <div>
+      {customer.map((customers) => (
+        <Person customer={customers} key={customers.id} />
+      ))}
     </div>
   );
 }
@@ -121,38 +130,29 @@ export default function App() {
 function Person({ customer }) {
   return (
     <div>
-      <li>
-        <h3>{customer.name}</h3>
-        <img src={customer.image}></img>
-      </li>
+      <h3>{customer.name}</h3>
+      <img src={customer.image} alt={customer.name} />
+      <h3>Balance: {customer.balance}</h3>
     </div>
   );
 }
+
 function ListGrocerys({ groceryList }) {
   return (
-    <ul>
-      <h3></h3>
-      <img></img>
-    </ul>
+    <div className="form-split-bill">
+      <h2>{groceryList.fruit}</h2>
+      <h2>{groceryList.fruitImage}</h2>
+      <h2>{groceryList.price}</h2>
+    </div>
   );
 }
 
-function ShowListPeople({ customer }) {
+function ShowGrocerys({ groceryList }) {
   return (
-    <ul>
-      {customer.map((customers) => (
-        <Person customer={customers} key={customers.id} />
+    <div>
+      {groceryList.map((groceryItem) => (
+        <ListGrocerys groceryList={groceryItem} key={groceryItem.id} />
       ))}
-    </ul>
-  );
-}
-
-function showGrocerys({ groceryList }) {
-  return (
-    <ul>
-      {groceryList.map((groceryList) => (
-        <ListGrocerys listOfFruits={groceryList} key={groceryList.id} />
-      ))}
-    </ul>
+    </div>
   );
 }
