@@ -112,6 +112,7 @@ export default function App() {
   return (
     <div className="sidebar">
       <ShowListPeople customer={customer} />
+      <showGrocerys groceryList={groceryList} />
       <CustomerButton />
     </div>
   );
@@ -127,12 +128,30 @@ function Person({ customer }) {
     </div>
   );
 }
+function ListGrocerys({ groceryList }) {
+  return (
+    <ul>
+      <h3></h3>
+      <img></img>
+    </ul>
+  );
+}
 
 function ShowListPeople({ customer }) {
   return (
     <ul>
       {customer.map((customers) => (
         <Person customer={customers} key={customers.id} />
+      ))}
+    </ul>
+  );
+}
+
+function showGrocerys({ groceryList }) {
+  return (
+    <ul>
+      {groceryList.map((groceryList) => (
+        <ListGrocerys listOfFruits={groceryList} key={groceryList.id} />
       ))}
     </ul>
   );
