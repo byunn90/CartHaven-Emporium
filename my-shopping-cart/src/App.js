@@ -101,22 +101,23 @@ export default function App() {
     setshowAddToList((show) => !show);
   }
 
-  function CustomerButton() {
-    return <button>Go Shopping</button>;
+  function CustomerButton({ onClick }) {
+    return (
+      <button className="button" onClick={onClick}>
+        Go Shopping
+      </button>
+    );
   }
 
   return (
     <div className="sidebar">
       <ShowListPeople customer={customer} />
-      <ShowGroceryList groceryList={groceryList}></ShowGroceryList>
-      <div className="btn">
-        <CustomerButton />
-      </div>
+      <CustomerButton />
     </div>
   );
 }
 
-function Friend({ customer }) {
+function Person({ customer }) {
   return (
     <div>
       <li>
@@ -126,30 +127,13 @@ function Friend({ customer }) {
     </div>
   );
 }
+
 function ShowListPeople({ customer }) {
   return (
     <ul>
       {customer.map((customers) => (
-        <Friend customer={customers} key={customers.id} />
+        <Person customer={customers} key={customers.id} />
       ))}
     </ul>
-  );
-}
-
-function ShowGroceryList({ groceryList }) {
-  return (
-    <ul>
-      {groceryList.map((groceryItem) => (
-        <FoodList groceryItem={groceryItem} key={groceryItem.id} />
-      ))}
-    </ul>
-  );
-}
-function FoodList({ groceryItem }) {
-  return (
-    <li>
-      <h3>{groceryItem.fruit}</h3>
-      <img src={groceryItem.fruitImage} alt={groceryItem.fruit} />
-    </li>
   );
 }
