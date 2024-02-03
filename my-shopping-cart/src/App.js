@@ -48,14 +48,20 @@ const initialBasketAndCustomers = [
 
 export default function App() {
   const [customer, setCustomer] = useState(initialBasketAndCustomers);
+  const [shoppingList, setShoppingList] = useState(initialBasketAndCustomers)
 
-  function CustomerButton() {
+  function OnClick() {
+
+  }
+
+  function CustomerButton({ onclick }) {
     return <button>Buy</button>;
   }
 
   return (
     <div className="sidebar">
-      <ShowListPeople customer={customer} />
+      <ShowListPeople customer={customer} shoppingList={shoppingList} />
+
       <div className="btn">
         <CustomerButton />
       </div>
@@ -76,9 +82,19 @@ function Friend({ customer }) {
 function ShowListPeople({ customer }) {
   return (
     <ul>
-      {customer.map((customers) => (
+      {customer.map((customers, shoppingList) => (
         <Friend customer={customers} key={customers.id} />
+        <FoodList groceryList={shoppingList} key={shoppingList.id}/>
       ))}
     </ul>
   );
+}
+
+function FoodList() {
+  return(
+    <div>
+      <h3></h3>
+      <img></img>
+    </div>
+  )
 }
