@@ -143,6 +143,7 @@ function ListGrocerys({ groceryList }) {
       <h2>{groceryList.fruit}</h2>
       <h2>{groceryList.fruitImage}</h2>
       <h2>{groceryList.price}</h2>
+      <h2>{groceryList.price}</h2>
     </div>
   );
 }
