@@ -97,14 +97,16 @@ function ShowListPeople({ customer }) {
 
 function Person({ customer }) {
   return (
-    <div>
-      <h3>{customer.name}</h3>
-      <img src={customer.image} alt={customer.name} />
-      <h3>Balance: {customer.balance}</h3>
+    <div className="person-container">
+      <div className="person-details">
+        <h3>{customer.name}</h3>
+        <img src={customer.image} alt={customer.name} />
+        <h3>Balance:${customer.balance}</h3>
+      </div>
+      <button className="select">Select</button>
     </div>
   );
 }
-
 function ListGrocerys({ groceryList }) {
   const [fruitQuainty, setFruitQuaintity] = useState(1);
 
