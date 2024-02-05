@@ -79,7 +79,7 @@ export default function App() {
         <ShowListPeople
           customer={customer}
           onSelect={PersonSelected}
-          selectPerson={selectPerson}
+          selectedPerson={selectPerson} // Make sure this matches what's expected in ShowListPeople
         />
 
         <CustomerButton onClick={handleShowGroceryList} />
@@ -94,18 +94,23 @@ export default function App() {
   );
 }
 
-function ShowListPeople({ customer, onSelect }) {
+function ShowListPeople({ customer, onSelect, selectedPerson }) {
   return (
     <div className="Person">
       {customer.map((customer) => (
-        <Person key={customer.id} customer={customer} onSelect={onSelect} />
+        <Person
+          key={customer.id}
+          customer={customer}
+          onSelect={onSelect}
+          selectedPerson={selectedPerson} // Pass this to each Person
+        />
       ))}
     </div>
   );
 }
-function Person({ customer, onSelect, setSelectedPerson }) {
-  const isSelected = setSelectedPerson?.id === customer.id;
-  console.log(isSelected);
+function Person({ customer, onSelect, selectedPerson }) {
+  // Check if this customer is the selected one
+  const isSelected = selectedPerson?.id === customer.id;
 
   return (
     <div className={`person-container ${isSelected ? "selected" : ""}`}>
