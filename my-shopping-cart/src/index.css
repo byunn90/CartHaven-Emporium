@@ -27,6 +27,7 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  margin-left: 10px;
 }
 
 .sidebar ul {
@@ -77,4 +78,7 @@ body {
 .grocery-list {
   flex: 1;
   padding: 1rem;
+}
+.Person {
+  margin-left: 10px;
 }

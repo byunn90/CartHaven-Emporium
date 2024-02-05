@@ -54,6 +54,7 @@ export default function App() {
   const [customer, setCustomer] = useState(initialBasketAndCustomers);
   const [groceryList, setGroceryList] = useState(initialFruits);
   const [showGroceryList, setShowGroceryList] = useState(false);
+  const [selectPerson, setSelectedPerson] = useState(null);
 
   function handleShowGroceryList() {
     setShowGroceryList((prevShowGroceryList) => !prevShowGroceryList);
@@ -86,7 +87,7 @@ export default function App() {
 
 function ShowListPeople({ customer }) {
   return (
-    <div>
+    <div className="Person">
       {customer.map((customers) => (
         <Person customer={customers} key={customers.id} />
       ))}
@@ -96,7 +97,7 @@ function ShowListPeople({ customer }) {
 
 function Person({ customer }) {
   return (
-    <div className="Person">
+    <div>
       <h3>{customer.name}</h3>
       <img src={customer.image} alt={customer.name} />
       <h3>Balance: {customer.balance}</h3>
