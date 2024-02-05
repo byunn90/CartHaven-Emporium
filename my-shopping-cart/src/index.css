@@ -5,6 +5,7 @@ body {
   color: #495057;
   display: flex;
   background-color: var(--color-lightest);
+  font-family: "Roboto", sans-serif;
 }
 .interchange {
   text-align: center;
@@ -94,6 +95,7 @@ body {
 
 .person-details h3 {
   margin-bottom: 5px;
+  font-size: 12px;
 }
 
 .person-details img {
