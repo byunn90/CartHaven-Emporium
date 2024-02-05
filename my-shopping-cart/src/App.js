@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./index.css";
-import { Button } from "bootstrap";
+import FruitIcon from "./Components/FruitIcon";
 // array Objects
 const initialBasketAndCustomers = [
   {
@@ -146,7 +146,9 @@ function ShowGrocerys({ groceryList }) {
       {groceryList.map((groceryItem) => (
         <ListGrocerys groceryList={groceryItem} key={groceryItem.id} />
       ))}
-      <button>Add to Cart</button>
+      <div className="shopping-cart-btn">
+        <button>Add to Basket 🛒</button>
+      </div>
     </div>
   );
 }

@@ -117,3 +117,9 @@ body {
 .select:hover {
   background-color: #125c34; /* Darker color on hover */
 }
+.shopping-cart-btn {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 10px;
+}
