@@ -67,10 +67,20 @@ export default function App() {
     );
   }
 
+  function PersonSelected(customer) {
+    setSelectedPerson((cur) => {
+      console.log(customer);
+      return cur?.id === customer.id ? null : customer;
+    });
+  }
   return (
     <div className="app">
       <div className="sidebar">
-        <ShowListPeople customer={customer} />
+        <ShowListPeople
+          customer={customer}
+          onSelect={PersonSelected}
+          selectPerson={selectPerson}
+        />
 
         <CustomerButton onClick={handleShowGroceryList} />
       </div>
@@ -84,25 +94,29 @@ export default function App() {
   );
 }
 
-function ShowListPeople({ customer }) {
+function ShowListPeople({ customer, onSelect }) {
   return (
     <div className="Person">
-      {customer.map((customers) => (
-        <Person customer={customers} key={customers.id} />
+      {customer.map((customer) => (
+        <Person key={customer.id} customer={customer} onSelect={onSelect} />
       ))}
     </div>
   );
 }
+function Person({ customer, onSelect, setSelectedPerson }) {
+  const isSelected = setSelectedPerson?.id === customer.id;
+  console.log(isSelected);
 
-function Person({ customer }) {
   return (
-    <div className="person-container">
+    <div className={`person-container ${isSelected ? "selected" : ""}`}>
       <div className="person-details">
         <h3>{customer.name}</h3>
         <img src={customer.image} alt={customer.name} />
-        <h3>Balance:${customer.balance}</h3>
+        <h3>Balance: ${customer.balance}</h3>
       </div>
-      <button className="select">Select</button>
+      <button className="select" onClick={() => onSelect(customer)}>
+        {isSelected ? "Deselect" : "Select"}
+      </button>
     </div>
   );
 }
