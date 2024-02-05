@@ -53,7 +53,6 @@ export default function App() {
   const [customer, setCustomer] = useState(initialBasketAndCustomers);
   const [groceryList, setGroceryList] = useState(initialFruits);
   const [showGroceryList, setShowGroceryList] = useState(false);
-  const [fruitQuainty, setFruitQuaintity] = useState();
 
   function handleShowGroceryList() {
     setShowGroceryList((prevShowGroceryList) => !prevShowGroceryList);
@@ -105,13 +104,28 @@ function Person({ customer }) {
 }
 
 function ListGrocerys({ groceryList }) {
+  const [fruitQuainty, setFruitQuaintity] = useState(1);
+
+  function increaseQuantityFruit() {
+    if (fruitQuainty < 0) return;
+    setFruitQuaintity((prevQuantity) => prevQuantity + 1);
+  }
+  function decreaseQuantityFruit() {
+    setFruitQuaintity((prevQuantity) => prevQuantity - 1);
+    if (fruitQuainty <= 0) setFruitQuaintity(0);
+  }
+
   return (
     <div className="form-split-bill">
       <label>
-        <h2>{groceryList.fruit}</h2>
-        <h2>{groceryList.fruitImage}</h2>
-        <h2>${groceryList.price}</h2>
-        <input></input>
+        <h3>{groceryList.fruit}</h3>
+        <h3>{groceryList.fruitImage}</h3>
+        <h3>${groceryList.price * fruitQuainty}</h3>
+        <div>
+          <button onClick={decreaseQuantityFruit}>{"<"}</button>
+          <input className="interchange" value={fruitQuainty} readOnly />
+          <button onClick={increaseQuantityFruit}>{">"}</button>
+        </div>
       </label>
     </div>
   );
