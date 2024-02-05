@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./index.css";
+import { Button } from "bootstrap";
 // array Objects
 const initialBasketAndCustomers = [
   {
@@ -95,7 +96,7 @@ function ShowListPeople({ customer }) {
 
 function Person({ customer }) {
   return (
-    <div>
+    <div className="Person">
       <h3>{customer.name}</h3>
       <img src={customer.image} alt={customer.name} />
       <h3>Balance: {customer.balance}</h3>
@@ -121,10 +122,15 @@ function ListGrocerys({ groceryList }) {
         <h3>{groceryList.fruit}</h3>
         <h3>{groceryList.fruitImage}</h3>
         <h3>${groceryList.price * fruitQuainty}</h3>
-        <div>
-          <button onClick={decreaseQuantityFruit}>{"<"}</button>
+
+        <div className="quantity-container">
+          <button className="quantity-button" onClick={decreaseQuantityFruit}>
+            {"<"}
+          </button>
           <input className="interchange" value={fruitQuainty} readOnly />
-          <button onClick={increaseQuantityFruit}>{">"}</button>
+          <button className="quantity-button" onClick={increaseQuantityFruit}>
+            {">"}
+          </button>
         </div>
       </label>
     </div>
@@ -137,6 +143,7 @@ function ShowGrocerys({ groceryList }) {
       {groceryList.map((groceryItem) => (
         <ListGrocerys groceryList={groceryItem} key={groceryItem.id} />
       ))}
+      <button>Add to Cart</button>
     </div>
   );
 }

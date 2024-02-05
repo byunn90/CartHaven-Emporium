@@ -21,7 +21,7 @@ body {
 
 .sidebar {
   width: 300px;
-  background-color: #fff;
+  background-color: #e4efff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
@@ -62,16 +62,16 @@ body {
 
 .button {
   padding: 1rem;
-  background-color: var(--color-medium);
+  background-color: #248b4a;
   border: none;
   border-radius: 0 0 8px 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.5s;
 }
 
 .button:hover {
-  background-color: var(--color-dark);
+  background-color: #96cdaa;
 }
 
 .grocery-list {
