@@ -47,48 +47,6 @@ const initialFruits = [
     price: 1,
     fruitImage: "🍅",
   },
-  {
-    id: 4,
-    fruit: "Orange",
-    price: 1.5,
-    fruitImage: "🍊",
-  },
-  {
-    id: 5,
-    fruit: "Grapes",
-    price: 3,
-    fruitImage: "🍇",
-  },
-  {
-    id: 6,
-    fruit: "Strawberry",
-    price: 2.5,
-    fruitImage: "🍓",
-  },
-  {
-    id: 7,
-    fruit: "Watermelon",
-    price: 4,
-    fruitImage: "🍉",
-  },
-  {
-    id: 8,
-    fruit: "Pineapple",
-    price: 3.5,
-    fruitImage: "🍍",
-  },
-  {
-    id: 9,
-    fruit: "Kiwi",
-    price: 2,
-    fruitImage: "🥝",
-  },
-  {
-    id: 10,
-    fruit: "Mango",
-    price: 2.8,
-    fruitImage: "🥭",
-  },
 ];
 
 export default function App() {
@@ -109,10 +67,18 @@ export default function App() {
   }
 
   return (
-    <div className="sidebar">
-      <ShowListPeople customer={customer} />
-      <CustomerButton onClick={handleShowGroceryList} />
-      {showGroceryList && <ShowGrocerys groceryList={groceryList} />}
+    <div className="app">
+      <div className="sidebar">
+        <ShowListPeople customer={customer} />
+
+        <CustomerButton onClick={handleShowGroceryList} />
+      </div>
+
+      {showGroceryList && (
+        <div className="grocery-list">
+          <ShowGrocerys groceryList={groceryList} />
+        </div>
+      )}
     </div>
   );
 }
@@ -142,8 +108,7 @@ function ListGrocerys({ groceryList }) {
     <div className="form-split-bill">
       <h2>{groceryList.fruit}</h2>
       <h2>{groceryList.fruitImage}</h2>
-      <h2>{groceryList.price}</h2>
-      <h2>{groceryList.price}</h2>
+      <h2>${groceryList.price}</h2>
     </div>
   );
 }

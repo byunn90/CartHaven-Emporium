@@ -1,28 +1,15 @@
-:root {
-  --color-lightest: #f8f9fa;
-  --color-light: #dee2e6;
-  --color-medium: #007bff;
-  --color-dark: #0056b3;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 62.5%;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
 body {
+  display: flex;
+  justify-content: center;
   height: 100vh;
   color: #495057;
   display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: var(--color-lightest);
+}
+
+.app {
+  display: flex;
+  flex: 1;
 }
 
 .sidebar {
@@ -31,11 +18,14 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar ul {
   list-style: none;
   padding: 1rem;
+  flex: 1;
 }
 
 .sidebar li {
@@ -64,10 +54,8 @@ body {
 }
 
 .button {
-  width: 100%;
   padding: 1rem;
   background-color: var(--color-medium);
-  color: #fff;
   border: none;
   border-radius: 0 0 8px 8px;
   font-weight: bold;
@@ -77,4 +65,9 @@ body {
 
 .button:hover {
   background-color: var(--color-dark);
+}
+
+.grocery-list {
+  flex: 1;
+  padding: 1rem;
 }
