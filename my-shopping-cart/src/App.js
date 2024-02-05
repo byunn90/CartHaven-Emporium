@@ -53,6 +53,7 @@ export default function App() {
   const [customer, setCustomer] = useState(initialBasketAndCustomers);
   const [groceryList, setGroceryList] = useState(initialFruits);
   const [showGroceryList, setShowGroceryList] = useState(false);
+  const [fruitQuainty, setFruitQuaintity] = useState();
 
   function handleShowGroceryList() {
     setShowGroceryList((prevShowGroceryList) => !prevShowGroceryList);
@@ -106,9 +107,12 @@ function Person({ customer }) {
 function ListGrocerys({ groceryList }) {
   return (
     <div className="form-split-bill">
-      <h2>{groceryList.fruit}</h2>
-      <h2>{groceryList.fruitImage}</h2>
-      <h2>${groceryList.price}</h2>
+      <label>
+        <h2>{groceryList.fruit}</h2>
+        <h2>{groceryList.fruitImage}</h2>
+        <h2>${groceryList.price}</h2>
+        <input></input>
+      </label>
     </div>
   );
 }
