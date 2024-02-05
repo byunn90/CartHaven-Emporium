@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./index.css";
-import FruitIcon from "./Components/FruitIcon";
 // array Objects
 const initialBasketAndCustomers = [
   {
