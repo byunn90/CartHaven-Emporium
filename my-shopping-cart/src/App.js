@@ -170,3 +170,5 @@ function ShowGrocerys({ groceryList }) {
     </div>
   );
 }
+
+function PeopleBalance() {}
