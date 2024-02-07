@@ -47,6 +47,12 @@ const initialFruits = [
     price: 1,
     fruitImage: "🍅",
   },
+  {
+    id: 4,
+    fruit: "Water Melon",
+    price: 1,
+    fruitImage: "🍉",
+  },
 ];
 
 export default function App() {
@@ -91,7 +97,6 @@ export default function App() {
           <ShowGrocerys
             groceryList={groceryList}
             selectedPerson={selectPerson} // Corrected from selectPerson to selectedPerson
-            addToCustomerCart={addToCustomerCart}
           />
         </div>
       )}
@@ -162,14 +167,14 @@ function ListGrocerys({ groceryList }) {
     </div>
   );
 }
-function ShowGrocerys({ groceryList, selectedPerson, addToCustomerCart }) {
+function ShowGrocerys({ groceryList, selectedPerson }) {
   // Assuming each addition is a single quantity
   const handleAddToCart = (fruitId) => {
     if (!selectedPerson) {
       alert("Please select a customer first.");
       return;
     }
-    addToCustomerCart(selectedPerson.id, fruitId, 1); // Add 1 quantity of the fruit
+    // Add 1 quantity of the fruit
   };
 
   return (
@@ -177,22 +182,15 @@ function ShowGrocerys({ groceryList, selectedPerson, addToCustomerCart }) {
       {groceryList.map((groceryItem) => (
         <div key={groceryItem.id}>
           <ListGrocerys groceryList={groceryItem} />
-          <div className="shopping-cart-btn">
-            <button onClick={() => handleAddToCart(groceryItem.id)}>
-              Add to Basket 🛒
-            </button>
-          </div>
+          <div className="shopping-cart-btn"></div>
         </div>
       ))}
+      <button>Add to Basket 🛒</button>
     </div>
   );
 }
 
-function addToCustomerCart(
-  customerId,
-  fruitId,
-  quantityToAdd,
-  setCustomerCarts
-) {
-  setCustomerCarts((prevCarts) => {});
-}
+// 1 check what the person has selected then push that into a function store it
+// 2 after that push that into a function and store into a object array
+// 3 whatever the person has selected or balance then remove that from his existing balance
+// 4
