@@ -60,8 +60,6 @@ export default function App() {
   const [groceryList, setGroceryList] = useState(initialFruits);
   const [showGroceryList, setShowGroceryList] = useState(false);
   const [selectPerson, setSelectedPerson] = useState(null);
-  const [customerCarts, setCustomerCarts] = useState({});
-  const [fruitQuainty, setFruitQuaintity] = useState(1);
 
   function handleShowGroceryList() {
     setShowGroceryList((prevShowGroceryList) => !prevShowGroceryList);
@@ -139,21 +137,45 @@ function Person({ customer, onSelect, selectedPerson }) {
 }
 function ListGrocerys({ groceryList }) {
   const [fruitQuainty, setFruitQuaintity] = useState(1);
+  const [cart, setCart] = useState({});
 
-  function increaseQuantityFruit() {
+  const increaseQuantityFruit = () => {
     setFruitQuaintity((prevQuantity) => prevQuantity + 1);
-  }
+  };
 
-  function decreaseQuantityFruit() {
+  const decreaseQuantityFruit = () => {
     setFruitQuaintity((prevQuantity) => Math.max(1, prevQuantity - 1));
-  }
+  };
 
-  function handleQuantityChange(event) {
+  const handleQuantityChange = (event) => {
     const newValue = parseInt(event.target.value, 10);
     if (!isNaN(newValue) && newValue > 0) {
       setFruitQuaintity(newValue);
     }
-  }
+  };
+
+  const addToCart = () => {
+    const newItem = {
+      ...groceryList,
+      quantity: fruitQuainty,
+      totalPrice: groceryList.price * fruitQuainty,
+    };
+    setCart((prevCart) => {
+      // If the item already exists, update its quantity and totalPrice
+      if (prevCart[groceryList.id]) {
+        const updatedItem = {
+          ...newItem,
+          quantity: prevCart[groceryList.id].quantity + newItem.quantity,
+          totalPrice: prevCart[groceryList.id].totalPrice + newItem.totalPrice,
+        };
+        return { ...prevCart, [groceryList.id]: updatedItem };
+      }
+      // If the item is new, add it directly
+      return { ...prevCart, [groceryList.id]: newItem };
+    });
+    // Optionally reset quantity after adding to cart
+    setFruitQuaintity(1);
+  };
 
   return (
     <div className="form-split-bill">
@@ -176,49 +198,23 @@ function ListGrocerys({ groceryList }) {
             {">"}
           </button>
         </div>
+        <button onClick={addToCart}>Add to Cart 🛒</button>
       </label>
+
+      {/* For demonstration: Displaying a summary of the cart */}
+      <div className="cart-summary">
+        <h4>Cart Summary:</h4>
+        {Object.values(cart).map((item) => (
+          <div key={item.id}>
+            {item.fruit} - Quantity: {item.quantity}, Total: $
+            {item.totalPrice.toFixed(2)}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
-function ShowGrocerys({ groceryList, selectedPerson, setCustomerCarts }) {
-  const handleAddToCart = (groceryItem) => {
-    if (!selectedPerson) {
-      alert("Please select a customer first.");
-      return;
-    }
-
-    // Logic to add item to cart
-    setCustomerCarts((prevCarts) => {
-      const newCarts = { ...prevCarts };
-      const { id: customerId } = selectedPerson;
-      const { id: fruitId, price } = groceryItem;
-
-      if (!newCarts[customerId]) {
-        newCarts[customerId] = { items: [], total: 0 };
-      }
-
-      const existingItemIndex = newCarts[customerId].items.findIndex(
-        (item) => item.id === fruitId
-      );
-      if (existingItemIndex > -1) {
-        newCarts[customerId].items[existingItemIndex].quantity += 1;
-        newCarts[customerId].items[existingItemIndex].totalPrice += price;
-      } else {
-        newCarts[customerId].items.push({
-          ...groceryItem,
-          quantity: 1,
-          totalPrice: price,
-        });
-      }
-
-      newCarts[customerId].total += price;
-
-      return newCarts;
-    });
-
-    alert("Added to cart!");
-  };
-
+function ShowGrocerys({ groceryList }) {
   return (
     <div>
       {groceryList.map((groceryItem) => (
@@ -228,9 +224,6 @@ function ShowGrocerys({ groceryList, selectedPerson, setCustomerCarts }) {
             fruitQuainty={1} // Assuming starting quantity
             setFruitQuaintity={() => {}} // Assuming function for demonstration
           />
-          <button onClick={() => handleAddToCart(groceryItem)}>
-            Add to Basket 🛒
-          </button>
         </div>
       ))}
     </div>
