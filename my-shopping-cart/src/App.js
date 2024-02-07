@@ -88,7 +88,11 @@ export default function App() {
 
       {showGroceryList && (
         <div className="grocery-list">
-          <ShowGrocerys groceryList={groceryList} />
+          <ShowGrocerys
+            groceryList={groceryList}
+            selectedPerson={selectPerson} // Corrected from selectPerson to selectedPerson
+            addToCustomerCart={addToCustomerCart}
+          />
         </div>
       )}
     </div>
@@ -158,16 +162,28 @@ function ListGrocerys({ groceryList }) {
     </div>
   );
 }
+function ShowGrocerys({ groceryList, selectedPerson, addToCustomerCart }) {
+  // Assuming each addition is a single quantity
+  const handleAddToCart = (fruitId) => {
+    if (!selectedPerson) {
+      alert("Please select a customer first.");
+      return;
+    }
+    addToCustomerCart(selectedPerson.id, fruitId, 1); // Add 1 quantity of the fruit
+  };
 
-function ShowGrocerys({ groceryList }) {
   return (
     <div>
       {groceryList.map((groceryItem) => (
-        <ListGrocerys groceryList={groceryItem} key={groceryItem.id} />
+        <div key={groceryItem.id}>
+          <ListGrocerys groceryList={groceryItem} />
+          <div className="shopping-cart-btn">
+            <button onClick={() => handleAddToCart(groceryItem.id)}>
+              Add to Basket 🛒
+            </button>
+          </div>
+        </div>
       ))}
-      <div className="shopping-cart-btn">
-        <button>Add to Basket 🛒</button>
-      </div>
     </div>
   );
 }
@@ -176,8 +192,7 @@ function addToCustomerCart(
   customerId,
   fruitId,
   quantityToAdd,
-  customer,
-  selectedPerson
+  setCustomerCarts
 ) {
-  const selectedId = selectedPerson?.id === customer.id;
+  setCustomerCarts((prevCarts) => {});
 }
