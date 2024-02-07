@@ -54,6 +54,7 @@ export default function App() {
   const [groceryList, setGroceryList] = useState(initialFruits);
   const [showGroceryList, setShowGroceryList] = useState(false);
   const [selectPerson, setSelectedPerson] = useState(null);
+  const [customerCarts, setCustomerCarts] = useState({});
 
   function handleShowGroceryList() {
     setShowGroceryList((prevShowGroceryList) => !prevShowGroceryList);
@@ -66,7 +67,6 @@ export default function App() {
       </button>
     );
   }
-  function CartButton() {}
 
   function PersonSelected(customer) {
     setSelectedPerson((cur) => {
@@ -80,7 +80,7 @@ export default function App() {
         <ShowListPeople
           customer={customer}
           onSelect={PersonSelected}
-          selectedPerson={selectPerson}
+          selectedPerson={selectPerson} // Make sure this matches what's expected in ShowListPeople
         />
 
         <CustomerButton onClick={handleShowGroceryList} />
@@ -171,6 +171,13 @@ function ShowGrocerys({ groceryList }) {
     </div>
   );
 }
-function updateUserBalance(userID, newBalance) {
-  const updatedCustomers = customers.map(customer);
+
+function addToCustomerCart(
+  customerId,
+  fruitId,
+  quantityToAdd,
+  customer,
+  selectedPerson
+) {
+  const selectedId = selectedPerson?.id === customer.id;
 }

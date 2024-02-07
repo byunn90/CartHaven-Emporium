@@ -79,6 +79,7 @@ body {
 .grocery-list {
   flex: 1;
   padding: 1rem;
+  background: #e4efff;
 }
 .person-container {
   display: flex;
