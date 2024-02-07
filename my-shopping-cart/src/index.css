@@ -20,7 +20,6 @@ body {
 
 .interchange,
 .form-split-bill,
-.button,
 .grocery-list,
 .person-container,
 .person-details,
@@ -30,6 +29,10 @@ body {
 
 .shopping-cart-btn {
   text-align: center;
+  margin-top: 10px;
+}
+.button {
+  text-align: align;
   margin-top: 10px;
 }
 

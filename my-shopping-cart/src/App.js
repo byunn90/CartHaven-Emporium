@@ -61,6 +61,7 @@ export default function App() {
   const [showGroceryList, setShowGroceryList] = useState(false);
   const [selectPerson, setSelectedPerson] = useState(null);
   const [customerCarts, setCustomerCarts] = useState({});
+  const [fruitQuainty, setFruitQuaintity] = useState(1);
 
   function handleShowGroceryList() {
     setShowGroceryList((prevShowGroceryList) => !prevShowGroceryList);
@@ -96,7 +97,8 @@ export default function App() {
         <div className="grocery-list">
           <ShowGrocerys
             groceryList={groceryList}
-            selectedPerson={selectPerson} // Corrected from selectPerson to selectedPerson
+            selectedPerson={selectPerson}
+            // Corrected from selectPerson to selectedPerson
           />
         </div>
       )}
@@ -139,12 +141,18 @@ function ListGrocerys({ groceryList }) {
   const [fruitQuainty, setFruitQuaintity] = useState(1);
 
   function increaseQuantityFruit() {
-    if (fruitQuainty < 0) return;
     setFruitQuaintity((prevQuantity) => prevQuantity + 1);
   }
+
   function decreaseQuantityFruit() {
-    setFruitQuaintity((prevQuantity) => prevQuantity - 1);
-    if (fruitQuainty <= 0) setFruitQuaintity(0);
+    setFruitQuaintity((prevQuantity) => Math.max(1, prevQuantity - 1));
+  }
+
+  function handleQuantityChange(event) {
+    const newValue = parseInt(event.target.value, 10);
+    if (!isNaN(newValue) && newValue > 0) {
+      setFruitQuaintity(newValue);
+    }
   }
 
   return (
@@ -158,7 +166,12 @@ function ListGrocerys({ groceryList }) {
           <button className="quantity-button" onClick={decreaseQuantityFruit}>
             {"<"}
           </button>
-          <input className="interchange" value={fruitQuainty} readOnly />
+          <input
+            className="interchange"
+            type="number"
+            value={fruitQuainty}
+            onChange={handleQuantityChange}
+          />
           <button className="quantity-button" onClick={increaseQuantityFruit}>
             {">"}
           </button>
@@ -167,25 +180,59 @@ function ListGrocerys({ groceryList }) {
     </div>
   );
 }
-function ShowGrocerys({ groceryList, selectedPerson }) {
-  // Assuming each addition is a single quantity
-  const handleAddToCart = (fruitId) => {
+function ShowGrocerys({ groceryList, selectedPerson, setCustomerCarts }) {
+  const handleAddToCart = (groceryItem) => {
     if (!selectedPerson) {
       alert("Please select a customer first.");
       return;
     }
-    // Add 1 quantity of the fruit
+
+    // Logic to add item to cart
+    setCustomerCarts((prevCarts) => {
+      const newCarts = { ...prevCarts };
+      const { id: customerId } = selectedPerson;
+      const { id: fruitId, price } = groceryItem;
+
+      if (!newCarts[customerId]) {
+        newCarts[customerId] = { items: [], total: 0 };
+      }
+
+      const existingItemIndex = newCarts[customerId].items.findIndex(
+        (item) => item.id === fruitId
+      );
+      if (existingItemIndex > -1) {
+        newCarts[customerId].items[existingItemIndex].quantity += 1;
+        newCarts[customerId].items[existingItemIndex].totalPrice += price;
+      } else {
+        newCarts[customerId].items.push({
+          ...groceryItem,
+          quantity: 1,
+          totalPrice: price,
+        });
+      }
+
+      newCarts[customerId].total += price;
+
+      return newCarts;
+    });
+
+    alert("Added to cart!");
   };
 
   return (
     <div>
       {groceryList.map((groceryItem) => (
         <div key={groceryItem.id}>
-          <ListGrocerys groceryList={groceryItem} />
-          <div className="shopping-cart-btn"></div>
+          <ListGrocerys
+            groceryList={groceryItem}
+            fruitQuainty={1} // Assuming starting quantity
+            setFruitQuaintity={() => {}} // Assuming function for demonstration
+          />
+          <button onClick={() => handleAddToCart(groceryItem)}>
+            Add to Basket 🛒
+          </button>
         </div>
       ))}
-      <button>Add to Basket 🛒</button>
     </div>
   );
 }
