@@ -66,6 +66,7 @@ export default function App() {
       </button>
     );
   }
+  function CartButton() {}
 
   function PersonSelected(customer) {
     setSelectedPerson((cur) => {
@@ -79,7 +80,7 @@ export default function App() {
         <ShowListPeople
           customer={customer}
           onSelect={PersonSelected}
-          selectedPerson={selectPerson} // Make sure this matches what's expected in ShowListPeople
+          selectedPerson={selectPerson}
         />
 
         <CustomerButton onClick={handleShowGroceryList} />
@@ -170,5 +171,6 @@ function ShowGrocerys({ groceryList }) {
     </div>
   );
 }
-
-function PeopleBalance() {}
+function updateUserBalance(userID, newBalance) {
+  const updatedCustomers = customers.map(customer);
+}
