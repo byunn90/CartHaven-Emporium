@@ -85,7 +85,7 @@ export default function App() {
         <ShowListPeople
           customer={customer}
           onSelect={PersonSelected}
-          selectedPerson={selectPerson} // Make sure this matches what's expected in ShowListPeople
+          selectedPerson={selectPerson}
         />
 
         <CustomerButton onClick={handleShowGroceryList} />
@@ -96,7 +96,6 @@ export default function App() {
           <ShowGrocerys
             groceryList={groceryList}
             selectedPerson={selectPerson}
-            // Corrected from selectPerson to selectedPerson
           />
         </div>
       )}
@@ -229,8 +228,3 @@ function ShowGrocerys({ groceryList }) {
     </div>
   );
 }
-
-// 1 check what the person has selected then push that into a function store it
-// 2 after that push that into a function and store into a object array
-// 3 whatever the person has selected or balance then remove that from his existing balance
-// 4
