@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./index.css";
+import { Alert } from "bootstrap";
 // array Objects
 const initialBasketAndCustomers = [
   {
@@ -61,6 +62,7 @@ export default function App() {
   const [showGroceryList, setShowGroceryList] = useState(false);
   const [selectPerson, setSelectedPerson] = useState(null);
   const [fruitQuantity, setFruitQuantity] = useState(0);
+  const [cart, setCart] = useState({});
 
   function handleShowGroceryList() {
     setShowGroceryList((prevShowGroceryList) => !prevShowGroceryList);
@@ -80,6 +82,16 @@ export default function App() {
       return cur?.id === customer.id ? null : customer;
     });
   }
+  function onClick() {
+    alert("Please return the stolen good");
+  }
+  function AddToCart({ onClick }) {
+    return (
+      <button className="AddToCart" onClick={onClick}>
+        Add To Cart
+      </button>
+    );
+  }
   return (
     <div className="app">
       <div className="sidebar">
@@ -93,14 +105,17 @@ export default function App() {
       </div>
 
       {showGroceryList && (
-        <div className="grocery-list">
-          <ShowGrocerys
-            fruitQuantity={fruitQuantity}
-            setFruitQuantity={setFruitQuantity}
-            groceryList={groceryList}
-            selectedPerson={selectPerson}
-            customer={customer}
-          />
+        <div>
+          <div className="grocery-list">
+            <ShowGrocerys
+              fruitQuantity={fruitQuantity}
+              setFruitQuantity={setFruitQuantity}
+              groceryList={groceryList}
+              selectedPerson={selectPerson}
+              customer={customer}
+            />
+            <AddToCart onClick={onClick} />
+          </div>
         </div>
       )}
     </div>

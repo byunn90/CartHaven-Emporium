@@ -38,12 +38,13 @@ body {
 
 .app {
   display: flex;
+  flex-direction: row;
+  align-items: stretch; /* Ensure children stretch to fill the height */
   max-width: 90%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
 }
-
 .sidebar {
   width: 300px;
   background-color: var(--color-light);
@@ -134,11 +135,12 @@ body {
     margin-bottom: 10px;
   }
 }
-.quantity-container {
+
+.fruitQuantity {
   display: flex;
+  align-items: center;
+  text-align: center;
 }
-.fruitQuantity,
 input {
-  display: flex;
   text-align: center;
 }
