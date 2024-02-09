@@ -137,3 +137,8 @@ body {
 .quantity-container {
   display: flex;
 }
+.fruitQuantity,
+input {
+  display: flex;
+  text-align: center;
+}

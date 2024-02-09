@@ -44,13 +44,13 @@ const initialFruits = [
   {
     id: 3,
     fruit: "Tomato",
-    price: 1,
+    price: 2,
     fruitImage: "🍅",
   },
   {
     id: 4,
     fruit: "Water Melon",
-    price: 1,
+    price: 3,
     fruitImage: "🍉",
   },
 ];
@@ -60,6 +60,7 @@ export default function App() {
   const [groceryList, setGroceryList] = useState(initialFruits);
   const [showGroceryList, setShowGroceryList] = useState(false);
   const [selectPerson, setSelectedPerson] = useState(null);
+  const [fruitQuantity, setFruitQuantity] = useState(0);
 
   function handleShowGroceryList() {
     setShowGroceryList((prevShowGroceryList) => !prevShowGroceryList);
@@ -94,8 +95,11 @@ export default function App() {
       {showGroceryList && (
         <div className="grocery-list">
           <ShowGrocerys
+            fruitQuantity={fruitQuantity}
+            setFruitQuantity={setFruitQuantity}
             groceryList={groceryList}
             selectedPerson={selectPerson}
+            customer={customer}
           />
         </div>
       )}
@@ -117,9 +121,9 @@ function ShowListPeople({ customer, onSelect, selectedPerson }) {
     </div>
   );
 }
-function Person({ customer, onSelect, selectedPerson }) {
+function Person({ customer, onSelect, setSelectedPerson }) {
   // Check if this customer is the selected one
-  const isSelected = selectedPerson?.id === customer.id;
+  const isSelected = setSelectedPerson?.id === customer.id;
 
   return (
     <div className={`person-container ${isSelected ? "selected" : ""}`}>
@@ -134,95 +138,38 @@ function Person({ customer, onSelect, selectedPerson }) {
     </div>
   );
 }
-function ListGrocerys({ groceryList }) {
-  const [fruitQuainty, setFruitQuaintity] = useState(1);
-  const [cart, setCart] = useState({});
+function ShowGrocerys({
+  groceryList,
+  selectedPerson,
+  fruitQuantity,
+  setFruitQuantity,
+}) {
+  function IncreaseQuantity(fruitId) {
+    setFruitQuantity((prevQuantities) => ({
+      ...prevQuantities,
+      [fruitId]: (prevQuantities[fruitId] || 0) + 1,
+    }));
+  }
 
-  const increaseQuantityFruit = () => {
-    setFruitQuaintity((prevQuantity) => prevQuantity + 1);
-  };
-
-  const decreaseQuantityFruit = () => {
-    setFruitQuaintity((prevQuantity) => Math.max(1, prevQuantity - 1));
-  };
-
-  const handleQuantityChange = (event) => {
-    const newValue = parseInt(event.target.value, 10);
-    if (!isNaN(newValue) && newValue > 0) {
-      setFruitQuaintity(newValue);
-    }
-  };
-
-  const addToCart = () => {
-    const newItem = {
-      ...groceryList,
-      quantity: fruitQuainty,
-      totalPrice: groceryList.price * fruitQuainty,
-    };
-    setCart((prevCart) => {
-      // If the item already exists, update its quantity and totalPrice
-      if (prevCart[groceryList.id]) {
-        const updatedItem = {
-          ...newItem,
-          quantity: prevCart[groceryList.id].quantity + newItem.quantity,
-          totalPrice: prevCart[groceryList.id].totalPrice + newItem.totalPrice,
-        };
-        return { ...prevCart, [groceryList.id]: updatedItem };
-      }
-      // If the item is new, add it directly
-      return { ...prevCart, [groceryList.id]: newItem };
-    });
-    // Optionally reset quantity after adding to cart
-    setFruitQuaintity(1);
-  };
+  function DecreaseQuantity(fruitId) {
+    setFruitQuantity((prevQuantities) => ({
+      ...prevQuantities,
+      [fruitId]: Math.max(0, (prevQuantities[fruitId] || 0) - 1),
+    }));
+  }
 
   return (
-    <div className="form-split-bill">
-      <label>
-        <h3>{groceryList.fruit}</h3>
-        <h3>{groceryList.fruitImage}</h3>
-        <h3>${groceryList.price * fruitQuainty}</h3>
-
-        <div className="quantity-container">
-          <button className="quantity-button" onClick={decreaseQuantityFruit}>
-            {"<"}
-          </button>
-          <input
-            className="interchange"
-            type="number"
-            value={fruitQuainty}
-            onChange={handleQuantityChange}
-          />
-          <button className="quantity-button" onClick={increaseQuantityFruit}>
-            {">"}
-          </button>
-        </div>
-        <button onClick={addToCart}>Add to Cart 🛒</button>
-      </label>
-
-      {/* For demonstration: Displaying a summary of the cart */}
-      <div className="cart-summary">
-        <h4>Cart Summary:</h4>
-        {Object.values(cart).map((item) => (
-          <div key={item.id}>
-            {item.fruit} - Quantity: {item.quantity}, Total: $
-            {item.totalPrice.toFixed(2)}
+    <div className="grocery-list">
+      {groceryList.map((item) => (
+        <div key={item.id}>
+          <h3>{item.fruit}</h3>
+          <h2>{item.fruitImage}</h2>
+          <h4>${item.price}</h4>
+          <div className="fruitQuantity">
+            <button onClick={() => DecreaseQuantity(item.id)}>-</button>
+            <input type="number" value={fruitQuantity[item.id] || 0} readOnly />
+            <button onClick={() => IncreaseQuantity(item.id)}>+</button>
           </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-function ShowGrocerys({ groceryList }) {
-  return (
-    <div>
-      {groceryList.map((groceryItem) => (
-        <div key={groceryItem.id}>
-          <ListGrocerys
-            groceryList={groceryItem}
-            fruitQuainty={1} // Assuming starting quantity
-            setFruitQuaintity={() => {}} // Assuming function for demonstration
-          />
         </div>
       ))}
     </div>
