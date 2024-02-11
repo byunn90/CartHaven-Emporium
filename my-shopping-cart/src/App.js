@@ -180,7 +180,6 @@ function ShowGrocerys({
           <h3>{item.fruit}</h3>
           <h2>{item.fruitImage}</h2>
           <h4>${item.price}</h4>
-          <h4>{item.price}</h4>
           <div className="fruitQuantity">
             <button onClick={() => DecreaseQuantity(item.id)}>-</button>
             <input type="number" value={fruitQuantity[item.id] || 0} readOnly />
