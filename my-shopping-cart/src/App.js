@@ -28,31 +28,34 @@ const initialBasketAndCustomers = [
     balance: 0,
   },
 ];
-
 const initialFruits = [
   {
     id: 1,
     fruit: "Apple",
     price: 1,
     fruitImage: "🍏",
+    quantity: 0, // Initial quantity set to 0
   },
   {
     id: 2,
     fruit: "Banana",
     price: 2,
     fruitImage: "🍌",
+    quantity: 0, // Initial quantity set to 0
   },
   {
     id: 3,
     fruit: "Tomato",
     price: 2,
     fruitImage: "🍅",
+    quantity: 0, // Initial quantity set to 0
   },
   {
     id: 4,
     fruit: "Water Melon",
     price: 3,
     fruitImage: "🍉",
+    quantity: 0, // Initial quantity set to 0
   },
 ];
 
@@ -61,7 +64,6 @@ export default function App() {
   const [groceryList, setGroceryList] = useState(initialFruits);
   const [showGroceryList, setShowGroceryList] = useState(false);
   const [selectPerson, setSelectedPerson] = useState(null);
-  const [fruitQuantity, setFruitQuantity] = useState(0);
   const [cart, setCart] = useState({});
 
   function handleShowGroceryList() {
@@ -83,7 +85,7 @@ export default function App() {
     });
   }
   function onClick() {
-    alert("Please return the stolen good");
+    alert("Thanks for Shopping at our Store! ☺");
   }
   function AddToCart({ onClick }) {
     return (
@@ -108,9 +110,8 @@ export default function App() {
         <div>
           <div className="grocery-list">
             <ShowGrocerys
-              fruitQuantity={fruitQuantity}
-              setFruitQuantity={setFruitQuantity}
               groceryList={groceryList}
+              setGroceryList={setGroceryList}
               selectedPerson={selectPerson}
               customer={customer}
             />
@@ -155,24 +156,50 @@ function Person({ customer, onSelect, setSelectedPerson }) {
 }
 function ShowGrocerys({
   groceryList,
+  setGroceryList,
   selectedPerson,
-  fruitQuantity,
-  setFruitQuantity,
+  onClick,
 }) {
-  function IncreaseQuantity(fruitId) {
-    setFruitQuantity((prevQuantities) => ({
-      ...prevQuantities,
-      [fruitId]: (prevQuantities[fruitId] || 0) + 1,
-    }));
-  }
+  // Function to increase the quantity of a specific fruit
+  const increaseQuantity = (fruitId) => {
+    // Update the groceryList state with the new quantity for the selected fruit
+    const updatedList = groceryList.map((fruit) => {
+      if (fruit.id === fruitId) {
+        return { ...fruit, quantity: fruit.quantity + 1 };
+      }
+      return fruit;
+    });
+    setGroceryList(updatedList);
+  };
 
-  function DecreaseQuantity(fruitId) {
-    setFruitQuantity((prevQuantities) => ({
-      ...prevQuantities,
-      [fruitId]: Math.max(0, (prevQuantities[fruitId] || 0) - 1),
-    }));
-  }
+  function TotalPrice() {
+    // Calculate the total price
+    const totalPrice = groceryList.reduce((acc, current) => {
+      return acc + current.quantity * current.price;
+    }, 0); // Start accumulating from 0
 
+    // Log the total price
+    console.log(totalPrice);
+
+    // Optionally, if you want to show the total price on the UI,
+    // you might consider returning this value or using another state to manage it.
+    return totalPrice;
+  }
+  // Optionally, a function to decrease the quantity, ensuring it doesn't go below 0
+  const decreaseQuantity = (fruitId) => {
+    const updatedList = groceryList.map((fruit) => {
+      if (fruit.id === fruitId && fruit.quantity > 0) {
+        return { ...fruit, quantity: fruit.quantity - 1 };
+      }
+      return fruit;
+    });
+    setGroceryList(updatedList);
+  };
+  const totalPrice = groceryList.reduce((acc, current) => {
+    return acc + current.quantity * current.price;
+  }, 0);
+
+  // Display each fruit with its details and controls to adjust quantity
   return (
     <div className="grocery-list">
       {groceryList.map((item) => (
@@ -181,12 +208,14 @@ function ShowGrocerys({
           <h2>{item.fruitImage}</h2>
           <h4>${item.price}</h4>
           <div className="fruitQuantity">
-            <button onClick={() => DecreaseQuantity(item.id)}>-</button>
-            <input type="number" value={fruitQuantity[item.id] || 0} readOnly />
-            <button onClick={() => IncreaseQuantity(item.id)}>+</button>
+            <button onClick={() => decreaseQuantity(item.id)}>-</button>
+            <input type="number" value={item.quantity} readOnly />
+            <button onClick={() => increaseQuantity(item.id)}>+</button>
           </div>
         </div>
       ))}
+      <onClick onClick={TotalPrice}>show me</onClick>
+      <h4>total Price: $ {totalPrice}</h4>
     </div>
   );
 }
