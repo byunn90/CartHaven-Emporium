@@ -160,9 +160,7 @@ function ShowGrocerys({
   selectedPerson,
   onClick,
 }) {
-  // Function to increase the quantity of a specific fruit
   const increaseQuantity = (fruitId) => {
-    // Update the groceryList state with the new quantity for the selected fruit
     const updatedList = groceryList.map((fruit) => {
       if (fruit.id === fruitId) {
         return { ...fruit, quantity: fruit.quantity + 1 };
@@ -173,19 +171,15 @@ function ShowGrocerys({
   };
 
   function TotalPrice() {
-    // Calculate the total price
     const totalPrice = groceryList.reduce((acc, current) => {
       return acc + current.quantity * current.price;
-    }, 0); // Start accumulating from 0
+    }, 0);
 
-    // Log the total price
     console.log(totalPrice);
 
-    // Optionally, if you want to show the total price on the UI,
-    // you might consider returning this value or using another state to manage it.
     return totalPrice;
   }
-  // Optionally, a function to decrease the quantity, ensuring it doesn't go below 0
+
   const decreaseQuantity = (fruitId) => {
     const updatedList = groceryList.map((fruit) => {
       if (fruit.id === fruitId && fruit.quantity > 0) {
@@ -199,7 +193,6 @@ function ShowGrocerys({
     return acc + current.quantity * current.price;
   }, 0);
 
-  // Display each fruit with its details and controls to adjust quantity
   return (
     <div className="grocery-list">
       {groceryList.map((item) => (
@@ -214,7 +207,7 @@ function ShowGrocerys({
           </div>
         </div>
       ))}
-      <onClick onClick={TotalPrice}>show me</onClick>
+      <onClick onClick={TotalPrice}>Your Total Cost is: ${totalPrice}</onClick>
       <h4>total Price: $ {totalPrice}</h4>
     </div>
   );
