@@ -147,30 +147,30 @@ input {
 
 .button,
 .AddToCart {
-  background-color: #4caf50; /* Green background */
-  border: none; /* No borders */
-  color: white; /* White text */
-  padding: 15px 32px; /* Padding to make it larger */
-  text-align: center; /* Centered text */
-  text-decoration: none; /* No underline */
-  display: inline-block; /* Allows setting dimensions */
-  font-size: 16px; /* Larger font size */
-  margin: 4px 2px; /* Some margin */
-  cursor: pointer; /* Pointer cursor on hover */
-  border-radius: 5px; /* Rounded corners */
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .AddToCart:hover {
-  background-color: #45a049; /* Darker shade of green on hover */
+  background-color: #45a049;
 }
 .totalPrice {
-  color: #333; /* Dark text color for visibility */
-  font-size: 20px; /* Larger font size */
-  font-weight: bold; /* Bold font weight */
-  padding: 10px; /* Some padding */
-  margin-top: 20px; /* Space above the total price text */
-  background-color: #f9f9f9; /* Light background */
-  border-radius: 5px; /* Rounded corners */
-  border: 1px solid #ccc; /* Light border */
-  display: inline-block; /* Only as wide as necessary */
+  color: #333;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  display: inline-block;
 }
