@@ -144,3 +144,33 @@ body {
 input {
   text-align: center;
 }
+
+.button,
+.AddToCart {
+  background-color: #4caf50; /* Green background */
+  border: none; /* No borders */
+  color: white; /* White text */
+  padding: 15px 32px; /* Padding to make it larger */
+  text-align: center; /* Centered text */
+  text-decoration: none; /* No underline */
+  display: inline-block; /* Allows setting dimensions */
+  font-size: 16px; /* Larger font size */
+  margin: 4px 2px; /* Some margin */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.AddToCart:hover {
+  background-color: #45a049; /* Darker shade of green on hover */
+}
+.totalPrice {
+  color: #333; /* Dark text color for visibility */
+  font-size: 20px; /* Larger font size */
+  font-weight: bold; /* Bold font weight */
+  padding: 10px; /* Some padding */
+  margin-top: 20px; /* Space above the total price text */
+  background-color: #f9f9f9; /* Light background */
+  border-radius: 5px; /* Rounded corners */
+  border: 1px solid #ccc; /* Light border */
+  display: inline-block; /* Only as wide as necessary */
+}

@@ -111,10 +111,6 @@ export default function App() {
             setGroceryList={setGroceryList}
             selectedPerson={selectPerson}
           />
-          <button className="AddToCart" onClick={HandleTotalPrice}>
-            Add To Cart
-          </button>
-          {showTotalPrice && <h4>Your Total Cost is: ${totalPrice}</h4>}
         </>
       )}
     </div>
@@ -153,40 +149,42 @@ function Person({ customer, onSelect, setSelectedPerson }) {
   );
 }
 function ShowGrocerys({ groceryList, setGroceryList }) {
+  const [showTotalPrice, setShowTotalPrice] = useState(false);
+
+  // Function to increase the quantity of an item
   const increaseQuantity = (fruitId) => {
-    const updatedList = groceryList.map((fruit) => {
-      if (fruit.id === fruitId) {
-        return { ...fruit, quantity: fruit.quantity + 1 };
+    const updatedList = groceryList.map((item) => {
+      if (item.id === fruitId) {
+        return { ...item, quantity: item.quantity + 1 };
       }
-      return fruit;
+      return item;
     });
     setGroceryList(updatedList);
   };
 
-  function TotalPrice() {
-    const totalPrice = groceryList.reduce((acc, current) => {
-      return acc + current.quantity * current.price;
-    }, 0);
-
-    console.log(totalPrice);
-
-    return totalPrice;
-  }
-
+  // Function to decrease the quantity of an item
   const decreaseQuantity = (fruitId) => {
-    const updatedList = groceryList.map((fruit) => {
-      if (fruit.id === fruitId && fruit.quantity > 0) {
-        return { ...fruit, quantity: fruit.quantity - 1 };
+    const updatedList = groceryList.map((item) => {
+      if (item.id === fruitId && item.quantity > 0) {
+        return { ...item, quantity: item.quantity - 1 };
       }
-      return fruit;
+      return item;
     });
     setGroceryList(updatedList);
+  };
+
+  // Calculate the total price
+  const calculateTotalPrice = () => {
+    return groceryList.reduce(
+      (acc, item) => acc + item.quantity * item.price,
+      0
+    );
   };
 
   return (
     <div className="grocery-list">
       {groceryList.map((item) => (
-        <div key={item.id}>
+        <div key={item.id} className="item">
           <h3>{item.fruit}</h3>
           <h2>{item.fruitImage}</h2>
           <h4>${item.price}</h4>
@@ -197,6 +195,13 @@ function ShowGrocerys({ groceryList, setGroceryList }) {
           </div>
         </div>
       ))}
+      <button
+        className="AddToCart"
+        onClick={() => setShowTotalPrice(!showTotalPrice)}
+      >
+        Add To Cart
+      </button>
+      {showTotalPrice && <h4>Your Total Cost is: ${calculateTotalPrice()}</h4>}
     </div>
   );
 }
