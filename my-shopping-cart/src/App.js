@@ -34,28 +34,28 @@ const initialFruits = [
     fruit: "Apple",
     price: 1,
     fruitImage: "🍏",
-    quantity: 0, // Initial quantity set to 0
+    quantity: 0,
   },
   {
     id: 2,
     fruit: "Banana",
     price: 2,
     fruitImage: "🍌",
-    quantity: 0, // Initial quantity set to 0
+    quantity: 0,
   },
   {
     id: 3,
     fruit: "Tomato",
     price: 2,
     fruitImage: "🍅",
-    quantity: 0, // Initial quantity set to 0
+    quantity: 0,
   },
   {
     id: 4,
     fruit: "Water Melon",
     price: 3,
     fruitImage: "🍉",
-    quantity: 0, // Initial quantity set to 0
+    quantity: 0,
   },
 ];
 
@@ -121,7 +121,6 @@ export default function App() {
             groceryList={groceryList}
             setGroceryList={setGroceryList}
             selectedPerson={selectPerson}
-            // No need to pass totalPrice to ShowGrocerys unless it needs it for some reason
           />
           <button className="AddToCart" onClick={HandleTotalPrice}>
             Add To Cart
@@ -141,7 +140,7 @@ function ShowListPeople({ customer, onSelect, selectedPerson }) {
           key={customer.id}
           customer={customer}
           onSelect={onSelect}
-          selectedPerson={selectedPerson} // Pass this to each Person
+          selectedPerson={selectedPerson}
         />
       ))}
     </div>
@@ -164,13 +163,7 @@ function Person({ customer, onSelect, setSelectedPerson }) {
     </div>
   );
 }
-function ShowGrocerys({
-  groceryList,
-  setGroceryList,
-  selectedPerson,
-  totalPrice,
-  showTotalPrice, // Accept showTotalPrice as a prop
-}) {
+function ShowGrocerys({ groceryList, setGroceryList }) {
   const increaseQuantity = (fruitId) => {
     const updatedList = groceryList.map((fruit) => {
       if (fruit.id === fruitId) {
