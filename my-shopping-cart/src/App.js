@@ -93,17 +93,6 @@ export default function App() {
       return cur?.id === customer.id ? null : customer;
     });
   }
-  function onClick() {
-    alert("Thanks for Shopping at our Store! ☺");
-  }
-  function AddToCart({ HandleTotalPrice }) {
-    return (
-      <button className="AddToCart" onClick={HandleTotalPrice}>
-        Add To Cart
-      </button>
-    );
-  }
-
   return (
     <div className="app">
       <div className="sidebar">
