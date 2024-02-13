@@ -64,10 +64,19 @@ export default function App() {
   const [groceryList, setGroceryList] = useState(initialFruits);
   const [showGroceryList, setShowGroceryList] = useState(false);
   const [selectPerson, setSelectedPerson] = useState(null);
-  const [cart, setCart] = useState({});
+  const [showTotalPrice, setShowTotalPrice] = useState(false);
+
+  const totalPrice = groceryList.reduce(
+    (acc, item) => acc + item.quantity * item.price,
+    0
+  );
 
   function handleShowGroceryList() {
     setShowGroceryList((prevShowGroceryList) => !prevShowGroceryList);
+  }
+
+  function HandleTotalPrice() {
+    setShowTotalPrice((total) => !total);
   }
 
   function CustomerButton({ onClick }) {
@@ -87,13 +96,14 @@ export default function App() {
   function onClick() {
     alert("Thanks for Shopping at our Store! ☺");
   }
-  function AddToCart({ onClick }) {
+  function AddToCart({ HandleTotalPrice }) {
     return (
-      <button className="AddToCart" onClick={onClick}>
+      <button className="AddToCart" onClick={HandleTotalPrice}>
         Add To Cart
       </button>
     );
   }
+
   return (
     <div className="app">
       <div className="sidebar">
@@ -105,19 +115,19 @@ export default function App() {
 
         <CustomerButton onClick={handleShowGroceryList} />
       </div>
-
       {showGroceryList && (
-        <div>
-          <div className="grocery-list">
-            <ShowGrocerys
-              groceryList={groceryList}
-              setGroceryList={setGroceryList}
-              selectedPerson={selectPerson}
-              customer={customer}
-            />
-            <AddToCart onClick={onClick} />
-          </div>
-        </div>
+        <>
+          <ShowGrocerys
+            groceryList={groceryList}
+            setGroceryList={setGroceryList}
+            selectedPerson={selectPerson}
+            // No need to pass totalPrice to ShowGrocerys unless it needs it for some reason
+          />
+          <button className="AddToCart" onClick={HandleTotalPrice}>
+            Add To Cart
+          </button>
+          {showTotalPrice && <h4>Your Total Cost is: ${totalPrice}</h4>}
+        </>
       )}
     </div>
   );
@@ -158,7 +168,8 @@ function ShowGrocerys({
   groceryList,
   setGroceryList,
   selectedPerson,
-  onClick,
+  totalPrice,
+  showTotalPrice, // Accept showTotalPrice as a prop
 }) {
   const increaseQuantity = (fruitId) => {
     const updatedList = groceryList.map((fruit) => {
@@ -189,9 +200,6 @@ function ShowGrocerys({
     });
     setGroceryList(updatedList);
   };
-  const totalPrice = groceryList.reduce((acc, current) => {
-    return acc + current.quantity * current.price;
-  }, 0);
 
   return (
     <div className="grocery-list">
@@ -207,8 +215,6 @@ function ShowGrocerys({
           </div>
         </div>
       ))}
-      <onClick onClick={TotalPrice}>Your Total Cost is: ${totalPrice}</onClick>
-      <h4>total Price: $ {totalPrice}</h4>
     </div>
   );
 }
