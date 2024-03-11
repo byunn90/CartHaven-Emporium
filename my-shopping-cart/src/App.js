@@ -75,10 +75,6 @@ export default function App() {
     setShowGroceryList((prevShowGroceryList) => !prevShowGroceryList);
   }
 
-  function HandleTotalPrice() {
-    setShowTotalPrice((total) => !total);
-  }
-
   function CustomerButton({ onClick }) {
     return (
       <button className="button" onClick={onClick}>
